@@ -48,8 +48,14 @@ def movie(id):
 @app.route("/delete/<int:id>", methods=["POST"])
 def delete(id):
     Movie.query.filter(Movie.id == id).delete()
+    Theme.query.filter(Theme.movie == id).delete()
     db.session.commit()
     return redirect(url_for('index'))
+
+@app.route("/theme/<int:id>")
+def theme(id):
+    theme = Theme.query.get(id)
+    return render_template("theme.html", theme=theme)
 
 @app.route("/theme/add/<int:mid>", methods=["POST"])
 def add_title(mid):
@@ -64,4 +70,11 @@ def add_title(mid):
         db.session.commit()
     except:
         return render_template("failure.html")
+    return redirect(url_for("movie",id=mid))
+
+@app.route("/theme/delete/<int:id>", methods=["POST"])
+def delete_title(id):
+    mid = Theme.query.get(id).movie
+    Theme.query.filter(Theme.id == id).delete()
+    db.session.commit()
     return redirect(url_for("movie",id=mid))

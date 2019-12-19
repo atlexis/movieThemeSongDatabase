@@ -25,3 +25,12 @@ It uses Python Flask microframework for serving.
 - Supported content is a movie title and a composer
 - Using jinja to extend _layout.html_
 - Using jinja to dynamically add content to the html file
+
+### Version 0.2
+- Added links to all movies at root
+- Added dynamically created movie page, with info about movie
+- Changed database to include imdb id for movies
+- Added theme table to database for theme song, with spotify id
+- Ability to add theme songs for movie
+- Ability to remove movie from database
+- Ability to add a movie with imdb id

@@ -45,3 +45,10 @@ Uses Python Flask micro framework for serving and SQLite for database.
 #### Version 0.2.1
 - Added _requirement.txt_ file for dependencies
 - Updated broken installation guide to use _requirement.txt_ file
+
+### Version 0.3
+- Added links for all theme songs from a movie
+- Added dynamically created theme song page
+- Ability to remove theme songs
+- Removes all theme songs associated with a movie when movie is deleted
+

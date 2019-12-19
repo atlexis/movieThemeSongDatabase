@@ -12,9 +12,14 @@
 	<h3>Theme songs</h3>
 	<ul>
 		{% for theme in themes %}
-		<li><i>{{theme}}</i></li>
+		<li><i>{{theme.title}}</i> ({{theme.spotify}})</li>
 		{% endfor %}
 	</ul>
+	<form action="/theme/add/{{movie.id}}" method="post">
+		<input name="title" placeholder="Theme title" type="text">
+		<input name="spotify" placeholder="Spotify id" type="text">
+		<input type="submit" value="Add theme song">
+	</form>
 	<form action="/delete/{{movie.id}}" method="post">
 		<input type="submit" value="Delete movie">
 	</form>

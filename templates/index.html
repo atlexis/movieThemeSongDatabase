@@ -11,7 +11,7 @@
 	<h4>Movie title - Composer</h4>
 	<ul>
 		{% for movie in movies %}
-		<li><a href="/movie/{{movie.id}}" type=get><i>{{ movie.title }}</i></a> by {{  movie.composer }}</li>
+		<li><a href="/movie/{{movie.id}}" type=get><i>{{ movie.title }}</i></a> scored by {{  movie.composer }}</li>
 		{% endfor %}
 	</ul>
 

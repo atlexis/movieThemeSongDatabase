@@ -42,7 +42,7 @@ def add():
 @app.route("/movie/<int:id>")
 def movie(id):
     movie = Movie.query.get(id)
-    themes = ["test1", "test2", "test3"]
+    themes = Theme.query.filter_by(movie=id)
     return render_template("movie.html", movie=movie, themes=themes)
 
 @app.route("/delete/<int:id>", methods=["POST"])
@@ -50,3 +50,18 @@ def delete(id):
     Movie.query.filter(Movie.id == id).delete()
     db.session.commit()
     return redirect(url_for('index'))
+
+@app.route("/theme/add/<int:mid>", methods=["POST"])
+def add_title(mid):
+    title = request.form.get("title")
+    spotify = request.form.get("spotify")
+    if not title or not spotify:
+        return render_template("failure.html")
+    new_theme = Theme(title=title,spotify=spotify,movie=mid)
+
+    try:
+        db.session.add(new_theme)
+        db.session.commit()
+    except:
+        return render_template("failure.html")
+    return redirect(url_for("movie",id=mid))

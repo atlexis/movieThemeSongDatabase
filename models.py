@@ -6,7 +6,7 @@ class Movie(db.Model):
     title = db.Column(db.String(200), nullable=False)
     composer = db.Column(db.String(200), nullable=False)
     imdb = db.Column(db.String(9), nullable=False)
-    themes = db.relationship('Theme', backref='movie', lazy=True)
+#    themes = db.relationship('Theme', backref='movie', lazy=True)
 
     def __repr__(self):
         return '<Task %r>' % self.id

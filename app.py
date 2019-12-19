@@ -26,9 +26,10 @@ def index():
 def add():
     title = request.form.get("title")
     composer = request.form.get("composer")
-    if not title or not composer:
+    imdb = request.form.get("imdb")
+    if not title or not composer or not imdb:
         return render_template("failure.html")
-    new_movie = Movie(title=title,composer=composer)
+    new_movie = Movie(title=title,composer=composer,imdb=imdb)
 
     try:
         db.session.add(new_movie)

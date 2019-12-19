@@ -12,7 +12,7 @@
 	<h3>Theme songs</h3>
 	<ul>
 		{% for theme in themes %}
-		<li><i>{{theme.title}}</i> ({{theme.spotify}})</li>
+		<li><a href="/theme/{{theme.id}}" type="get"><i>{{theme.title}}</i></a> ({{theme.spotify}})</li>
 		{% endfor %}
 	</ul>
 	<form action="/theme/add/{{movie.id}}" method="post">

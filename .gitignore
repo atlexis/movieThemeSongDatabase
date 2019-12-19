@@ -1,0 +1,6 @@
+
+# .swp files which are used by vim
+*.swp
+
+# the cache for a local server
+__pycache__/

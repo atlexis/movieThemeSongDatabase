@@ -7,10 +7,10 @@
 		<input name="composer" placeholder="Composer" type="text">
 		<input type="submit" value="Add">
 	</form>
-	<h2>Movie title - Composer</h2>
+	<h4>Movie title - Composer</h4>
 	<ul>
 		{% for movie in movies %}
-			<li><i>{{ movie.title }}</i> by {{  movie.composer }}</li>
+		<li><a href="/movie/{{movie.id}}" type=get><i>{{ movie.title }}</i></a> by {{  movie.composer }}</li>
 		{% endfor %}
 	</ul>
 

@@ -9,7 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 db = SQLAlchemy(app)
 
 # Import Movie data model, must be imported after db is set to prevent cyclic import conflict
-from Movie import Movie
+from models import Movie, Theme
 
 # Run server in debug mode (update when changes are made)
 #app.run(debug=True)
@@ -38,3 +38,14 @@ def add():
         # TODO add separate error message for db failure
     return redirect(url_for('index'))
 
+@app.route("/movie/<int:id>")
+def movie(id):
+    movie = Movie.query.get(id)
+    themes = ["test1", "test2", "test3"]
+    return render_template("movie.html", movie=movie, themes=themes)
+
+@app.route("/delete/<int:id>", methods=["POST"])
+def delete(id):
+    Movie.query.filter(Movie.id == id).delete()
+    db.session.commit()
+    return redirect(url_for('index'))

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+	<h1>Movie Theme Song Database</h1>
+	<form action="/" method="get">
+		<input type="submit" value="Back">
+	</form>
+	<h2>Movie: {{ movie.title }}</h2>
+	<p>id: {{ movie.id }}</p>
+	<p>composer: {{ movie.composer }}</p>
+	<p>IMDB id: //TODO</p>
+	<h3>Theme songs</h3>
+	<ul>
+		{% for theme in themes %}
+		<li><i>{{theme}}</i></li>
+		{% endfor %}
+	</ul>
+	<form action="/delete/{{movie.id}}" method="post">
+		<input type="submit" value="Delete movie">
+	</form>
+{% endblock %}

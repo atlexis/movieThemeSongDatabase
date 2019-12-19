@@ -15,7 +15,7 @@ Uses Python Flask micro framework for serving and SQLite for database.
 4. Type in `$ . venv/bin/activate` to start the virtual environment
 5. (venv) should appear before the prompt
 
-###Installing dependencies
+### Installing dependencies
 1. Make sure you are in the _movieThemeSongDatabase_ folder and that the virtual environment is started.
 2. Type in `$ pip install -r requirement.txt`
 3. Wait for all dependencies to be installed

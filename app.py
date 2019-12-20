@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 #configure app
@@ -38,6 +38,22 @@ def add():
         return render_template("failure.html")
         # TODO add separate error message for db failure
     return redirect(url_for('index'))
+
+@app.route("/api/movies")
+def movies():
+    movie_list = Movie.query.all()
+    movies = []
+
+    for movie in movie_list:
+        themes = []
+        theme_list = Theme.query.filter_by(movie=movie.id)
+        for theme in theme_list:
+            themes.append({'title' : theme.title, 'spotify' : theme.spotify})
+        movies.append({'title' : movie.title, 'imdb' : movie.imdb, 'themes' : themes})
+            
+
+        
+    return jsonify({"movies" : movies})
 
 @app.route("/movie/<int:id>")
 def movie(id):

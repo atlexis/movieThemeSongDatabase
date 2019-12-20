@@ -39,8 +39,8 @@ def add():
         # TODO add separate error message for db failure
     return redirect(url_for('index'))
 
-@app.route("/api/movies")
-def movies():
+@app.route("/api/v1/movies", methods=["GET"])
+def api_get_movies():
     movie_list = Movie.query.all()
     movies = []
 
@@ -49,11 +49,19 @@ def movies():
         theme_list = Theme.query.filter_by(movie=movie.id)
         for theme in theme_list:
             themes.append({'title' : theme.title, 'spotify' : theme.spotify})
-        movies.append({'title' : movie.title, 'imdb' : movie.imdb, 'themes' : themes})
+        movies.append({'id' : movie.id, 'composer' : movie.composer, 'title' : movie.title, 'imdb' : movie.imdb, 'themes' : themes})
             
-
-        
     return jsonify({"movies" : movies})
+
+@app.route("/api/v1/movies/<int:id>", methods=["GET"])
+def api_get_movie(id):
+    movie_query = Movie.query.get(id)
+    themes = []
+    theme_list = Theme.query.filter(Theme.movie==id)
+    for theme in theme_list:
+        themes.append({'title' : theme.title, 'spotify' : theme.spotify})
+    movie = {'id' : movie_query.id, 'title' : movie_query.title, 'composer' : movie_query.composer, 'imdb' : movie_query.imdb, 'themes' : themes}
+    return jsonify({"movies" : movie})
 
 @app.route("/movie/<int:id>")
 def movie(id):

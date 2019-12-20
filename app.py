@@ -17,8 +17,13 @@ from models import Movie, Theme
 # root webpage
 @app.route("/")
 def index():
+    return redirect(url_for('movies'))
+
+@app.route("/movies", methods=["GET"])
+def movies():
     movies = Movie.query.order_by(Movie.title).all()
     return render_template("index.html", movies=movies)
+
 
 # just used for post, adds data to database
 # TODO add data through route instead of request

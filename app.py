@@ -63,6 +63,23 @@ def api_get_movie(id):
     movie = {'id' : movie_query.id, 'title' : movie_query.title, 'composer' : movie_query.composer, 'imdb' : movie_query.imdb, 'themes' : themes}
     return jsonify({"movies" : movie})
 
+@app.route("/api/v1/themes", methods=["GET"])
+def api_get_themes():
+    theme_list = Theme.query.all()
+    themes = []
+
+    for theme in theme_list:
+        movie = Movie.query.get(theme.movie)
+        themes.append({'id' : theme.id, 'title' : theme.title, 'spotify' : theme.spotify, 'movie title' : movie.title, 'composer' : movie.composer})
+    return jsonify({"themes" : themes})
+
+@app.route("/api/v1/themes/<int:id>", methods=["GET"])
+def api_get_theme(id):
+    theme_query = Theme.query.get(id)
+    movie = Movie.query.get(theme_query.movie)
+    theme = {'id' : theme_query.id, 'title' : theme_query.title, 'spotify' : theme_query.spotify, 'movie title' : movie.title, 'composer' : movie.composer}
+    return jsonify({"themes" : theme})
+
 @app.route("/movie/<int:id>")
 def movie(id):
     movie = Movie.query.get(id)

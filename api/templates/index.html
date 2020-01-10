@@ -4,14 +4,13 @@
 	<h1>Movie Theme Song Database</h1>
 	<form action="/add" method="post">
 		<input name="title" autocomplete="off" autofocus placeholder="Title" type="text">
-		<input name="composer" placeholder="Composer" type="text">
 		<input name="imdb" placeholder="IMDB id" type="text">
 		<input type="submit" value="Add">
 	</form>
 	<h4>Movie title - Composer</h4>
 	<ul>
 		{% for movie in movies %}
-		<li><a href="/movie/{{movie.id}}" type=get><i>{{ movie.title }}</i></a> scored by {{  movie.composer }}</li>
+		<li><a href="/movie/{{movie.id}}" type=get><i>{{ movie.title }}</i></a> ({{movie.imdb}})</li>
 		{% endfor %}
 	</ul>
 

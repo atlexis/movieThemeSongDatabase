@@ -51,6 +51,9 @@ Uses Python Flask micro framework for serving and SQLite for database.
   - If <nbr> is larger than the number of movies in the database, a 400 error code will be sent
   - The theme has fields: id, title, composer, movie title, imdb id and spotify id
 
+- Send a GET request to `/themes/spotify/<id>` to recieve a JSON object with the theme with the specified spotify id <id>, if existing, otherwise sends a 404 error.
+  - The theme has fields: id, title, composer, movie title, imdb id, spotify id 
+
 ## Versions
 
 ### Version 0.1 - Getting it out there

@@ -96,10 +96,10 @@ def api_get_movies():
         themes = []
         theme_list = Theme.query.filter_by(movie=movie.id)
         for theme in theme_list:
-            themes.append({'title' : theme.title, 'spotify' : theme.spotify})
-        movies.append({'id' : movie.id, 'composer' : movie.composer, 'title' : movie.title, 'imdb' : movie.imdb, 'themes' : themes})
+            themes.append({'title' : theme.title, 'composer' : theme.composer, 'spotify' : theme.spotify})
+        movies.append({'id' : movie.id, 'title' : movie.title, 'imdb' : movie.imdb, 'themes' : themes})
             
-    return jsonify({"movies" : movies})
+    return jsonify(movies)
 
 @main.route("/api/v1/movies/<int:id>", methods=["GET"])
 def api_get_movie(id):
@@ -107,9 +107,9 @@ def api_get_movie(id):
     themes = []
     theme_list = Theme.query.filter(Theme.movie==id)
     for theme in theme_list:
-        themes.append({'title' : theme.title, 'spotify' : theme.spotify})
-    movie = {'id' : movie_query.id, 'title' : movie_query.title, 'composer' : movie_query.composer, 'imdb' : movie_query.imdb, 'themes' : themes}
-    return jsonify({"movies" : movie})
+        themes.append({'title' : theme.title, 'composer' : theme.composer, 'spotify' : theme.spotify})
+    movie = {'id' : movie_query.id, 'title' : movie_query.title, 'imdb' : movie_query.imdb, 'themes' : themes}
+    return jsonify(movie)
 
 @main.route("/api/v1/themes", methods=["GET"])
 def api_get_themes():
@@ -118,13 +118,13 @@ def api_get_themes():
 
     for theme in theme_list:
         movie = Movie.query.get(theme.movie)
-        themes.append({'id' : theme.id, 'title' : theme.title, 'spotify' : theme.spotify, 'movie title' : movie.title, 'composer' : movie.composer})
-    return jsonify({"themes" : themes})
+        themes.append({'id' : theme.id, 'title' : theme.title, 'composer' : theme.composer, 'spotify' : theme.spotify, 'movie title' : movie.title, 'movie imdb' : movie.imdb})
+    return jsonify(themes)
 
 @main.route("/api/v1/themes/<int:id>", methods=["GET"])
 def api_get_theme(id):
     theme_query = Theme.query.get(id)
     movie = Movie.query.get(theme_query.movie)
-    theme = {'id' : theme_query.id, 'title' : theme_query.title, 'spotify' : theme_query.spotify, 'movie title' : movie.title, 'composer' : movie.composer}
+    theme = {'id' : theme_query.id, 'title' : theme_query.title, 'spotify' : theme_query.spotify, 'movie title' : movie.title, 'composer' : theme_query.composer, 'movie imdb' : movie.imdb}
     return jsonify({"themes" : theme})
 

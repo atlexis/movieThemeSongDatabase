@@ -76,3 +76,7 @@ Uses Python Flask micro framework for serving and SQLite for database.
 - Added api (v1) for getting data
 - Ability to get list of movies or a specific movie as JSON object
 - Ability to get list of themes or a specific theme as JSON object
+
+### Version 0.5 - Moving around
+- Changed structure to make it easier to remake database
+- Changed the composer attribute from Movie entity to Theme entity

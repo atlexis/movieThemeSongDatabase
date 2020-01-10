@@ -83,3 +83,7 @@ Uses Python Flask micro framework for serving and SQLite for database.
 
 #### Version 0.5.1
 - Removed old files from before restructure
+
+#### Version 0.5.2
+- Changed from serving html failure pages to instead use message flashing
+- Small cleanup in the code

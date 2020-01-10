@@ -1,49 +1,40 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify, Blueprint
+from flask import Flask, render_template, request, redirect, url_for, jsonify, Blueprint, flash
 from flask_sqlalchemy import SQLAlchemy
-
-#configure app
-#app = Flask(__name__)
-
-#configure database
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-#db = SQLAlchemy(app)
-
-# Import Movie data model, must be imported after db is set to prevent cyclic import conflict
 from api.models import Movie, Theme
 from . import db
 
-# Run server in debug mode (update when changes are made)
-#app.run(debug=True)
-
 main = Blueprint('main', __name__)
 
-# root webpage
+server_error_msg = 'Internal server error, sorry for the inconvenience'
+
+# root webpage, redirects to /movies
 @main.route("/", methods=['GET'])
 def index():
     return redirect(url_for('main.movies'))
 
+# home page, list of all movies
 @main.route("/movies", methods=["GET"])
 def movies():
     movies = Movie.query.order_by(Movie.title).all()
     return render_template("index.html", movies=movies)
-    return 'test'
 
-
-# just used for post, adds data to database
+# add data to database, redirects to /movies or shows error page
 @main.route("/add", methods=["POST"])
 def add():
     title = request.form.get("title")
     imdb = request.form.get("imdb")
-    if not title or not imdb:
-        return render_template("failure.html")
+    if not title or not imdb: # error check
+        flash('Please fill in both fields before submitting')
+        return redirect(url_for('main.index'))
     new_movie = Movie(title=title,imdb=imdb)
 
     try:
         db.session.add(new_movie)
         db.session.commit()
     except:
-        return render_template("failure.html")
-        # TODO add separate error message for db failure
+        flash(server_error_msg)
+        return redirect(url_for('main.index'))
+    flash("Movie '" + title + "' was added")
     return redirect(url_for('main.index'))
 
 @main.route("/movie/<int:id>")
@@ -54,9 +45,14 @@ def movie(id):
 
 @main.route("/delete/<int:id>", methods=["POST"])
 def delete(id):
-    Movie.query.filter(Movie.id == id).delete()
-    Theme.query.filter(Theme.movie == id).delete()
-    db.session.commit()
+    moviename = Movie.query.get(id).title
+    try:
+        Movie.query.filter(Movie.id == id).delete()
+        Theme.query.filter(Theme.movie == id).delete()
+        db.session.commit()
+    except:
+        flash(server_error_msg )
+    flash("Movie '" + moviename + "' was deleted")
     return redirect(url_for('main.index'))
 
 @main.route("/theme/<int:id>")
@@ -70,21 +66,29 @@ def add_title(mid):
     composer = request.form.get("composer")
     spotify = request.form.get("spotify")
     if not title or not composer or not spotify:
-        return render_template("failure.html")
+        flash('Please fill in all fields before submitting')
+        return redirect(url_for('main.movie',id=mid))
     new_theme = Theme(title=title,composer=composer,spotify=spotify,movie=mid)
 
     try:
         db.session.add(new_theme)
         db.session.commit()
     except:
-        return render_template("failure.html")
+        flash(server_error_msg)
+        return redirect(url_for('main.movie',id=mid))
+    flash("Theme '" + title + "' was added")
     return redirect(url_for("main.movie",id=mid))
 
 @main.route("/theme/delete/<int:id>", methods=["POST"])
 def delete_title(id):
-    mid = Theme.query.get(id).movie
-    Theme.query.filter(Theme.id == id).delete()
-    db.session.commit()
+    theme = Theme.query.get(id).title
+    try:
+        mid = Theme.query.get(id).movie
+        Theme.query.filter(Theme.id == id).delete()
+        db.session.commit()
+    except:
+        flash(server_error_msg)
+    flash("Theme '" + theme + "' was deleted")
     return redirect(url_for("main.movie",id=mid))
 
 @main.route("/api/v1/movies", methods=["GET"])

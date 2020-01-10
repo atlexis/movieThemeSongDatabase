@@ -5,3 +5,6 @@ templates/*.swp
 
 # the cache for a local server
 __pycache__/
+
+# weird icloud stuff
+*.icloud

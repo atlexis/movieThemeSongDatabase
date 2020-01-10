@@ -47,7 +47,7 @@ Uses Python Flask micro framework for serving and SQLite for database.
 - Send a GET request to `/themes/random` to recieve a JSON object with a random theme
   - The theme has fields: id, title, composer, movie title, imdb id and spotify id
 
-- Send a GET request to `/themes/random/<nbr> to recieve a JSON object with <nbr> amount of random themes from unique movie, e.g. two themes won't be from the same movie.
+- Send a GET request to `/themes/random/<nbr>` to recieve a JSON object with <nbr> amount of random themes from unique movie, e.g. two themes won't be from the same movie.
   - If <nbr> is larger than the number of movies in the database, a 400 error code will be sent
   - The theme has fields: id, title, composer, movie title, imdb id and spotify id
 

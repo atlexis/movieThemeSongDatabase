@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify, B
 from flask_sqlalchemy import SQLAlchemy
 from api.models import Movie, Theme
 from . import db
+import random
 
 main = Blueprint('main', __name__)
 
@@ -132,3 +133,25 @@ def api_get_theme(id):
     theme = {'id' : theme_query.id, 'title' : theme_query.title, 'spotify' : theme_query.spotify, 'movie title' : movie.title, 'composer' : theme_query.composer, 'movie imdb' : movie.imdb}
     return jsonify({"themes" : theme})
 
+@main.route("/api/v1/themes/random", methods=["GET"])
+def api_get_random_theme():
+    theme_list = Theme.query.all() 
+    themes = []
+
+    for theme in theme_list:
+        movie = Movie.query.get(theme.movie)
+        themes.append({'id' : theme.id, 'title' : theme.title, 'composer' : theme.composer, 'spotify' : theme.spotify, 'movie title' : movie.title, 'movie imdb' : movie.imdb})
+    rint = random.randint(0,len(themes)-1)
+
+    return jsonify(themes[rint])
+
+@main.route("/api/v1/themes/spotify/<string:id>", methods=["GET"])
+def api_get_theme_spotify(id):
+    theme_list = Theme.query.all()
+
+    for t in theme_list:
+        if t.spotify == id:
+            movie = Movie.query.get(t.movie)
+            theme = {'id' : t.id, 'title' : t.title, 'composer' : t.composer, 'spotify' : t.spotify, 'movie title' : movie.title, 'movie imdb' : movie.imdb}
+            return jsonify(theme)
+    return 'Theme with id ' + id + ' not found.', 404

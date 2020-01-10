@@ -80,3 +80,6 @@ Uses Python Flask micro framework for serving and SQLite for database.
 ### Version 0.5 - Moving around
 - Changed structure to make it easier to remake database
 - Changed the composer attribute from Movie entity to Theme entity
+
+#### Version 0.5.1
+- Removed old files from before restructure

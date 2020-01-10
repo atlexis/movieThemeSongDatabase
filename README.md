@@ -28,21 +28,28 @@ Uses Python Flask micro framework for serving and SQLite for database.
 
 ### Movies
 
-- Send a GET request to `/movies` to recieve a JSON object of all movies in database
-  - Each movie has fields with: id, title, composer, imdb id and an array with themes containing: title and spotify id
+- Send a GET request to `/movies` to recieve a JSON object with an array of all movies in database
+  - Each movie has fields with: id, title, imdb id and an array with themes containing: title, composer and spotify id
 
 - Send a GET request to `/movies/<id>` to recieve a JSON object of a specific movie in database
-  - The movie has fields with: id, title, composer, imdb id and an array with themes containing: title and spotify id
+  - The movie has fields with: id, title, imdb id and an array with themes containing: title, composer and spotify id
   - Returns code 500 atm if no movie is found with id
 
 ### Themes
 
-- Send a GET request to `/themes` to recieve a JSON object of all themes in database
-  - Each theme has fields with: id, title, composer, movie title and spotify id
+- Send a GET request to `/themes` to recieve a JSON object with an array of all themes in database
+  - Each theme has fields with: id, title, composer, movie title, imdb id and spotify id
   
 - Send a GET request to `/themes/<id>` to recieve a JSON object of a specific theme in database
-  - The theme has fields with: id, title, composer, movie title and spotify id
+  - The theme has fields with: id, title, composer, movie title, imdb id and spotify id
   - Returns code 500 atm if no theme is found with id
+
+- Send a GET request to `/themes/random` to recieve a JSON object with a random theme
+  - The theme has fields: id, title, composer, movie title, imdb id and spotify id
+
+- Send a GET request to `/themes/random/<nbr> to recieve a JSON object with <nbr> amount of random themes from unique movie, e.g. two themes won't be from the same movie.
+  - If <nbr> is larger than the number of movies in the database, a 400 error code will be sent
+  - The theme has fields: id, title, composer, movie title, imdb id and spotify id
 
 ## Versions
 
@@ -87,3 +94,8 @@ Uses Python Flask micro framework for serving and SQLite for database.
 #### Version 0.5.2
 - Changed from serving html failure pages to instead use message flashing
 - Small cleanup in the code
+
+### Version 0.6 - No end (point) in sight
+- Added new end points; getting a random theme, getting theme object from spotify id
+- Added end point for getting a specified number of random theme objects from different movies
+

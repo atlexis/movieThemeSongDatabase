@@ -145,6 +145,33 @@ def api_get_random_theme():
 
     return jsonify(themes[rint])
 
+@main.route("/api/v1/themes/random/<int:nbr>", methods=["GET"])
+def api_get_random_themes(nbr):
+    if nbr == 1:
+        return api_get_random_theme()
+    movie_list = Movie.query.all()
+    movies = []
+
+    for movie in movie_list:
+        themes = []
+        theme_list = Theme.query.filter_by(movie=movie.id)
+        for theme in theme_list:
+            themes.append({'title' : theme.title, 'composer' : theme.composer, 'spotify' : theme.spotify})
+        if len(themes) > 0:
+            movies.append({'id' : movie.id, 'title' : movie.title, 'imdb' : movie.imdb, 'themes' : themes})
+    if nbr > len(movies):
+        return 'Not enough movies', 400
+
+    random.shuffle(movies)
+    movies = movies[:nbr]
+    themes = []
+    for movie in movies:
+        theme_list = movie['themes']
+        random.shuffle(theme_list)
+        themes.append({'title' : theme_list[0]['title'], 'composer' : theme_list[0]['composer'], 'spotify' : theme_list[0]['spotify'], 'movie title' : movie['title'], 'movie imdb' : movie['imdb']})
+    
+    return jsonify(themes)
+
 @main.route("/api/v1/themes/spotify/<string:id>", methods=["GET"])
 def api_get_theme_spotify(id):
     theme_list = Theme.query.all()

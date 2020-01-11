@@ -20,6 +20,10 @@ Uses Python Flask micro framework for serving and SQLite for database.
 2. Type in `$ pip install -r requirement.txt`
 3. Wait for all dependencies to be installed
 
+### Setting environment variable
+1. Make sure you are in the _movieThemeSongDatabase_ folder and that the virtual environment is started.
+2. Set the environment variable by typing `$ export FLASK_APP=api`
+
 ### Starting the server
 1. Make sure you are in the _movieThemeSongDatabase_ folder, that the virtual environment is started and that all dependencies are installed
 2. Type in `$ flask run` to start a local server on address `localhost:5000`

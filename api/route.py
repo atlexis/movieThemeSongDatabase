@@ -133,17 +133,6 @@ def api_get_theme(id):
     theme = {'id' : theme_query.id, 'title' : theme_query.title, 'spotify' : theme_query.spotify, 'movie title' : movie.title, 'composer' : theme_query.composer, 'movie imdb' : movie.imdb}
     return jsonify({"themes" : theme})
 
-#@main.route("/api/v1/themes/random", methods=["GET"])
-#def api_get_random_theme():
-#    theme_list = Theme.query.all() 
-#    themes = []
-#
-#    for theme in theme_list:
-#        movie = Movie.query.get(theme.movie)
-#        themes.append({'id' : theme.id, 'title' : theme.title, 'composer' : theme.composer, 'spotify' : theme.spotify, 'movie title' : movie.title, 'movie imdb' : movie.imdb})
-#    rint = random.randint(0,len(themes)-1)
-#
-#    return jsonify(themes[rint])
 @main.route("/api/v1/themes/random", methods=["GET"])
 def api_get_random():
     questions = request.args.get('questions','')
@@ -194,8 +183,6 @@ def api_get_random():
 
 @main.route("/api/v1/themes/random/<int:nbr>", methods=["GET"])
 def api_get_random_themes(nbr):
-    if nbr == 1:
-        return api_get_random_theme()
     movie_list = Movie.query.all()
     movies = []
 

@@ -44,9 +44,6 @@ Uses Python Flask micro framework for serving and SQLite for database.
   - The theme has fields with: id, title, composer, movie title, imdb id and spotify id
   - Returns code 500 atm if no theme is found with id
 
-- Send a GET request to `/themes/random` to recieve a JSON object with a random theme
-  - The theme has fields: id, title, composer, movie title, imdb id and spotify id
-
 - Send a GET request to `/themes/random/<nbr>` to recieve a JSON object with <nbr> amount of random themes from unique movie, e.g. two themes won't be from the same movie.
   - If <nbr> is larger than the number of movies in the database, a 400 error code will be sent
   - The theme has fields: id, title, composer, movie title, imdb id and spotify id
@@ -109,3 +106,7 @@ Uses Python Flask micro framework for serving and SQLite for database.
 
 #### Version 0.6.1
 - Added new end point for getting an array of arrays with random themes, for use by Flickguess
+- Removed old `/api/v1/themes/random` endpoint, same functionality can be achieved by the `/api/v1/themes/random/1` endpoint
+
+#### Version 0.6.2
+- Resolved issue with calling a removed function for getting a single random theme object

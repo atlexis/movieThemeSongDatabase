@@ -110,3 +110,6 @@ Uses Python Flask micro framework for serving and SQLite for database.
 
 #### Version 0.6.2
 - Resolved issue with calling a removed function for getting a single random theme object
+
+#### Version 0.6.3
+- Added more data to the database

@@ -133,17 +133,64 @@ def api_get_theme(id):
     theme = {'id' : theme_query.id, 'title' : theme_query.title, 'spotify' : theme_query.spotify, 'movie title' : movie.title, 'composer' : theme_query.composer, 'movie imdb' : movie.imdb}
     return jsonify({"themes" : theme})
 
+#@main.route("/api/v1/themes/random", methods=["GET"])
+#def api_get_random_theme():
+#    theme_list = Theme.query.all() 
+#    themes = []
+#
+#    for theme in theme_list:
+#        movie = Movie.query.get(theme.movie)
+#        themes.append({'id' : theme.id, 'title' : theme.title, 'composer' : theme.composer, 'spotify' : theme.spotify, 'movie title' : movie.title, 'movie imdb' : movie.imdb})
+#    rint = random.randint(0,len(themes)-1)
+#
+#    return jsonify(themes[rint])
 @main.route("/api/v1/themes/random", methods=["GET"])
-def api_get_random_theme():
-    theme_list = Theme.query.all() 
-    themes = []
+def api_get_random():
+    questions = request.args.get('questions','')
+    options = request.args.get('options','')
+    if not questions or not options:
+        return 'Provide questions and options query params', 400
+    movie_list = Movie.query.all()
+    movies = []
 
-    for theme in theme_list:
-        movie = Movie.query.get(theme.movie)
-        themes.append({'id' : theme.id, 'title' : theme.title, 'composer' : theme.composer, 'spotify' : theme.spotify, 'movie title' : movie.title, 'movie imdb' : movie.imdb})
-    rint = random.randint(0,len(themes)-1)
+    for movie in movie_list:
+        movies.append({'id' : movie.id})
+        
+    random.shuffle(movies)
+    movies = movies[:int(questions)]
 
-    return jsonify(themes[rint])
+    mlist = []
+
+    for movie in movies:
+        other = []
+        #other.append({'id': movie['id']})
+        for movie2 in movie_list:
+            if movie['id'] != movie2.id:
+                other.append({'id': movie2.id})
+        random.shuffle(other)
+        other = other[:int(options)-1]
+        other.insert(0,{'id': movie['id']})
+        mlist.append(other)
+
+    movies = []
+
+    for i in range(0,len(mlist)):
+        level = []
+        for j in range(0,len(mlist[i])):
+            movie = Movie.query.get(mlist[i][j])
+            theme_list = Theme.query.filter_by(movie=mlist[i][j]['id'])
+            themes = []
+            for theme in theme_list:
+                themes.append({'id': theme.id, 'title': theme.title, 'composer': theme.composer, 'spotify': theme.spotify})
+            random.shuffle(themes)
+            if len(themes) > 0:
+                theme = themes[0]
+                level.append({'title': theme['title'], 'composer': theme['composer'], 'movie title': movie.title, 'imdb': movie.imdb, 'spotify': theme['spotify']})
+        movies.append(level)
+        
+    response = jsonify(movies)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 @main.route("/api/v1/themes/random/<int:nbr>", methods=["GET"])
 def api_get_random_themes(nbr):
@@ -170,7 +217,9 @@ def api_get_random_themes(nbr):
         random.shuffle(theme_list)
         themes.append({'title' : theme_list[0]['title'], 'composer' : theme_list[0]['composer'], 'spotify' : theme_list[0]['spotify'], 'movie title' : movie['title'], 'movie imdb' : movie['imdb']})
     
-    return jsonify(themes)
+    response = jsonify(themes)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 @main.route("/api/v1/themes/spotify/<string:id>", methods=["GET"])
 def api_get_theme_spotify(id):

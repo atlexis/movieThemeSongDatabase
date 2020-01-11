@@ -51,7 +51,7 @@ Uses Python Flask micro framework for serving and SQLite for database.
 - Send a GET request to `/themes/spotify/<id>` to recieve a JSON object with the theme with the specified spotify id <id>, if existing, otherwise sends a 404 error.
   - The theme has fields: id, title, composer, movie title, imdb id, spotify id 
 
-- Send a GET request to `/themes/spotify/random?question=<qnbr>&options=<onbr>` to recive a JSON object with <qnbr> arrays (question array) containing <onbr> arrays (option array) containing theme objects.
+- Send a GET request to `/themes/spotify/random?questions=<qnbr>&options=<onbr>` to recive a JSON object with <qnbr> arrays (question array) containing <onbr> arrays (option array) containing theme objects.
   - Every first object in the option array is unique compared to the first element in the other option arrays.
   - Every theme object in a option array are from different movies
   - A theme object contains: id, title, composer, movie title, imdb id, spotify id

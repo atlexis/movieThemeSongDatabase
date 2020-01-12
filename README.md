@@ -44,7 +44,7 @@ The web service is not yet deployed so when the application is run on your own m
 
 The graphical interface is the only way to add or delete data from the database, but you can access the data with the [API endpoints](#api) as well. The data can be accessed, deleted and created without any authentication.
 
-###Movies
+### Movies
 The main page is at `/movies` and contains a list of movies which can be clicked. At the top of the page is a form which can be filled in to add a new movie to the database. Each movie needs to be associated with an IMDB id, which can be seen in the URL of movies on the [IMDB website](https://www.imdb.com). E.g. [www.imdb.com/title/tt0120737/](https://www.imdb.com/title/tt0120737/) where **tt0120737** is the id.
   
 ### <a name='themes'> Themes
@@ -52,7 +52,7 @@ Each movie has it's own page **/movies/_id_** (id is this web service's own id) 
 
 An individual theme can be accessed by clicking on it. It has the url **/theme/_id_**. A theme page contains _id_, _title_ and _spotify id_. A theme can be deleted by pressing the button at the bottom of the page.
 
-###Note
+### Note
 - The id for accessing movies and themes is only used for navigation and access on the website and has no other use.
 - Movies or themes can't be added through a url but must be added through the forms.
 - Movies or themes can be deleted through a POST request to **/delete/_id_** or **/theme/delete/_id_**, but is preferably deleted through the graphical interface (or not at all).
@@ -64,14 +64,14 @@ Whenever _id_ or any other part of the url is written in cursive, it should be s
 
 The base adress for api calls are `/api/v1`
 
-###Movies
-####GET /movies
+### Movies
+#### GET /movies
 Get a list of all movies in the database. The list contains id, title, imdb id and an array of themes containing: title, composer and spotify id.
 
-#####Input
+##### Input
 None
 
-#####Return data
+##### Return data
 ```json
 [
   {
@@ -107,13 +107,13 @@ None
 ]
 ```
 
-####GET /movies/_id_
+#### GET /movies/_id_
 Get information about a certain movie. The id in the url is determining what movie is recieved.
 
-#####Input
+##### Input
 None
 
-#####Return data
+##### Return data
 Returns a 404 if a movie with specified id isn't found, otherwise:
 ```json
 {
@@ -135,14 +135,14 @@ Returns a 404 if a movie with specified id isn't found, otherwise:
 }
 ```
 
-###Themes
-####GET /themes
+### Themes
+#### GET /themes
 Get a list of all themes in the database. The list contains id, title, composer, movie title, imdb id and spotify id.
 
-#####Input
+##### Input
 None
 
-#####Return data
+##### Return data
 ```json
 [
   {
@@ -165,13 +165,13 @@ None
 ]
 ```
 
-####GET /themes/_id_
+#### GET /themes/_id_
 Get a information about a certain theme. The id in the url is determining what theme. is recieved.
 
-#####Input
+##### Input
 None
 
-#####Return data
+##### Return data
 Returns a 404 if a theme with specified id isn't found, otherwise:
 ```json
 {
@@ -184,13 +184,13 @@ Returns a 404 if a theme with specified id isn't found, otherwise:
 }
 ```
 
-####GET /themes/random/_nbr_
+#### GET /themes/random/_nbr_
 Get a list of random theme(s) from the database, with only one theme from each movie and each theme is guaranteed to be unique. Specify how many with _nbr_. Should be a positive integer, otherwise returns an 404. If _nbr_ is larger than the number of movies in the database, a 400 is returned.
 
-#####Input
+##### Input
 None
 
-#####Return data
+##### Return data
 The example is for a call to /themes/random/3
 ```json
 [
@@ -218,13 +218,13 @@ The example is for a call to /themes/random/3
 ]
 ```
 
-####GET /themes/spotify/_id_
+#### GET /themes/spotify/_id_
 Get information about a certain theme. The id in the url is a spotify id, see [here](#themes) what the id is.
 
-#####Input
+##### Input
 None
 
-#####Return data
+##### Return data
 Returns a 404 if a theme with specified id isn't found. The example is for a call to /themes/spotify/55xly70WJY1cx5qsoogaqs
 
 ```json
@@ -241,12 +241,12 @@ Returns a 404 if a theme with specified id isn't found. The example is for a cal
 #### <a name='random'> GET /themes/random?questions=_nbr_&options=_nbr_ 
 Get a list with a number of lists containing a number of random themes. Uses two query parameters for determining the size of the outer list and the size of all the inner lists.
 
-#####Input
+##### Input
 The _questions_ parameter determines the size of the outer list, i.e. how many lists it contains.
 
 The _options_ parameter detemines the size of the inner lists, i.e. how many themes they each contain.
 
-#####Return data
+##### Return data
 The example is for a call to /themes/random?questions=2&options=3
 ```json
 [

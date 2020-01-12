@@ -6,7 +6,15 @@ This web service is part of a school project and developed to be used by [flickg
 
 Uses Python Flask micro framework for serving and SQLite for database.
 
-## Getting the server to run
+**Navigation**
+- [Getting the server to run](#install)
+- [Access](#access)
+- [Graphical interface](#gi)
+- [API endpoints](#api)
+- [Code example](#code)
+- [Versions](#versions)
+
+## <a name='install'></a> Getting the server to run
 
 ### Virtual environment
 1. Make sure that Python 3.7+ is installed
@@ -28,7 +36,7 @@ Uses Python Flask micro framework for serving and SQLite for database.
 1. Make sure you are in the _movieThemeSongDatabase_ folder, that the virtual environment is started and that all dependencies are installed
 2. Type in `$ flask run` to start a local server on address `localhost:5000`
 
-## Access
+## <a name='access'></a> Access
 There are two ways to access the data in the database; the first way is through the [graphical interface](#gi) and the second way is by using the [API endpoints](#api).
 
 ## <a name='gi'></a> Graphical interface
@@ -291,7 +299,7 @@ The example is for a call to /themes/random?questions=2&options=3
 ]
 ```
 
-###Code example
+## <a name='code'></a> Code example
 The following example uses one of the APIs endpoints; [GET /themes/random](#random). It is written in JavaScript in the React framework, but any language which can handle API calls and JSON objects can use the API in a similar way.
 
 The method in this example fetches a two-dimensional array of random theme objects from the web service, it stores some data from the first element of each inner array as answer and some other data from all the elements of each inner array as options, then shuffles the options and stores both variables in a global array. This is reapeated for each inner array.
@@ -338,7 +346,7 @@ Theme object parameters can also be accessed directly from the JSON file – lin
 32 }
 ```
 
-## Versions
+## <a name='versions'></a> Versions
 
 ### Version 0.1 - Getting it out there
 - Display contents of database at root

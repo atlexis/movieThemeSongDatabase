@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header %}
+	<h1>{% block title %}Edit {{ theme['title'] }} from {{ theme['mtitle'] }} {% endblock %}</h1>
+
+	<a class="action" href="{{ url_for('web.theme', id=theme['id']) }}">Back</a>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="id">ID</label>
+    <input name="id" id="id" value="{{ theme['id'] }}" disabled>
+    <label for="title">Title</label>
+    <input name="title" id="title" value="{{ theme['title'] }}" required>
+    <label for="composer">Composer</label>
+    <input name="composer" id="composer" value="{{ theme['composer'] }}" required>
+    <label for="spotify">Spotify id</label>
+    <input name="spotify" id="spotify" value="{{ theme['spotify'] }}" required>
+    <label for="mid">Movie id</label>
+    <input type="text" name="mid" id="mid" value="{{ theme['mid'] }}" disabled >
+    <label for="mtitle">Movie title</label>
+    <input name="mtitle" id="mtitle" value="{{ theme['mtitle'] }}" disabled>
+    <label for="imdb">IMDB id</label>
+    <input name="imdb" id="imdb" value="{{ theme['imdb'] }}" disabled>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('web.delete_theme', id=theme['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+{% endblock %}

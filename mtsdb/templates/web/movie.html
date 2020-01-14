@@ -1,0 +1,26 @@
+<!--Author: Alexander Libot-->
+
+{% extends "base.html" %}
+
+{% block header %}
+	<h1>{% block title %}Movie: {{ movie['title'] }}{% endblock %}</h1>
+	{% if g.user %}
+		<a class="action" href="{{ url_for('web.update_movie', id=movie['id']) }}">Edit movie</a>
+		<a class="action" href="{{ url_for('web.create_theme', id=movie['id']) }}">Add new theme</a>
+	{% endif %}
+	<a class="action" href="{{ url_for('index') }}">Back</a>
+{% endblock %}
+
+{% block content %}
+	<p>Id: {{ movie['id'] }}</p>
+	<p>Title: {{ movie['title'] }}</p>
+	<p>IMDB id: {{movie['imdb'] }}</p>
+	<h3>Theme songs</h3>
+	<ul>
+		{% for theme in themes %}
+		<li><a href="{{url_for('web.theme', id=theme['id']) }}" type="get"><i>{{theme.title}}</i></a> ({{theme.spotify}})</li>
+		{% endfor %}
+	</ul>
+  <form action="{{ url_for('web.delete_movie', id=movie['id']) }}" method="post">
+  </form>
+{% endblock %}

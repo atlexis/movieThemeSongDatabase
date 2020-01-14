@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+	<h1>{% block title %}Add new movie{% endblock %}</h1>
+	<a class="action" href="{{ url_for('index') }}">Back</a>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="title">Movie title</label>
+    <input name="title" id="title" value="{{ request.form['title'] }}" required>
+    <label for="imdb">IMDB id</label>
+    <input name="imdb" id="imdb">{{ request.form['imdb'] }}</input>
+    <input type="submit" value="Save">
+  </form>
+{% endblock %}

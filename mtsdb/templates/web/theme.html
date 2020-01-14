@@ -1,0 +1,23 @@
+<!--Author: Alexander Libot-->
+
+{% extends "base.html" %}
+
+{% block header %}
+	<h1>{% block title %}Theme: {{ theme['title'] }} from {{ theme['mtitle'] }} {% endblock %}</h1>
+	{% if g.user %}
+		<a class="action" href="{{ url_for('web.update_theme', id=theme['id']) }}">Edit theme</a>
+	{% endif %}
+	<a class="action" href="{{url_for('web.movie', id=theme['mid']) }}">Back</a>
+
+{% endblock %}
+
+{% block content %}
+
+<p>ID: {{ theme['id'] }}</p>
+<p>Title: {{ theme['title'] }}</p>
+<p>Composer: {{ theme['composer'] }}</p>
+<p>Spotify id: {{ theme['spotify'] }}
+<p>Movie id: {{ theme['mid'] }}
+<p>Movie title: {{ theme['mtitle'] }}
+<p>IMDB id: {{ theme['imdb'] }}
+{% endblock %}

@@ -1,0 +1,19 @@
+<!--Author: Alexander Libot-->
+
+{% extends "base.html" %}
+
+{% block header %}
+	<h1>{% block title %}Movies{% endblock %}</h1>
+	{% if g.user %}
+		<a class="action" href="{{ url_for('web.create_movie') }}">Add new movie</a>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<h4>Movie title - IMDB id</h4>
+	<ul>
+		{% for movie in movies %}
+		<li><a href='/movies/{{ movie.id }}' type=get><i>{{ movie.title }}</i></a> ({{movie.imdb}})</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

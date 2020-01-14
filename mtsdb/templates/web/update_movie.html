@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+	<h1>{% block title %}Edit "{{ movie['title'] }}"{% endblock %}</h1>
+	<a href="{{ url_for('web.movie', id=movie['id']) }}">Back</a>
+
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+	<label for="id">ID</label>
+	<input name="id" id="id" value="{{ movie['id'] }}" disabled>
+    <label for="title">Title</label>
+    <input name="title" id="title"
+      value="{{ movie['title'] }}" required>
+    <label for="imdb">IMDB id</label>
+	<input name="imdb" id="imdb" value="{{ movie['imdb'] }}"</input>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('web.delete_movie', id=movie['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+{% endblock %}
+

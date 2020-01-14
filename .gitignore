@@ -1,10 +1,22 @@
 
-# .swp files which are used by vim
-*.swp
-templates/*.swp
+# venv/
 
 # the cache for a local server
+*.pyc
 __pycache__/
+
+# instance/
+
+# .pytest_cache/
+# .coverage
+# htmlcov/
+
+# dist/
+# build/
+# *.egg-info
+
+# .swp files which are used by vim
+*.swp
 
 # weird icloud stuff
 *.icloud

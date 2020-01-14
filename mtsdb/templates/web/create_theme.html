@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+	<h1>{% block title %}Add new theme to {{ movie.title }} {% endblock %}</h1>
+	<a class="action" href="{{ url_for('web.movie', id=movie['id']) }}">Back</a>
+{% endblock %}
+
+{% block content %}
+
+<form action="{{ url_for('web.create_theme', id=movie['id']) }}" method="post">
+		<input name="title" placeholder="Theme title" type="text">
+		<input name="composer" placeholder="Composer" type="text">	
+		<input name="spotify" placeholder="Spotify id" type="text">
+		<input type="submit" value="Add theme song">
+	</form>
+
+{% endblock %}
